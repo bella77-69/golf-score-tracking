@@ -10,10 +10,10 @@ router.get("/", coursesController.getAllCourses);
 router.get("/:id", coursesController.getCourseByID);
 
 // get by location
-router.get("/:location", coursesController.getCourseByLocation);
+router.get("/location/:location", coursesController.getCourseByLocation);
 
 // get by par
-router.get("/:par", coursesController.getCourseByPar);
+router.get("/par/:par", coursesController.getCourseByPar);
 
 // create new course
 router.post("/", coursesController.createNewCourse);

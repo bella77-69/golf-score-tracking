@@ -24,6 +24,7 @@ exports.getCourseByPar = (req, res) => {
   });
 };
 
+
 // create new course
   exports.createNewCourse = (req, res) => {
     const courseReqData = new CourseModel(req.body);

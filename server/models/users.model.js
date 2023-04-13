@@ -17,21 +17,21 @@ User.getAllUsers = (result) => {
   });
 };
 
-// //get user by username
-// User.getUserByUserName = (username, result) => {
-//   dbConn.query(
-//     "SELECT * FROM users WHERE username = ?",
-//     username,
-//     (err, res) => {
-//       if (err) {
-//        console.log("Error while fetching users by username", err);
-//         result(null, err);
-//       } else {
-//         result(null, res);
-//       }
-//     }
-//   );
-// };
+//get user by username
+User.getUserByUserName = (username, result) => {
+  dbConn.query(
+    "SELECT * FROM users WHERE username = ?",
+    username,
+    (err, res) => {
+      if (err) {
+       console.log("Error while fetching users by username", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
 
 // create new user
 User.createNewUser = (userReqData, result) => {

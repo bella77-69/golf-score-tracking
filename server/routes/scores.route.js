@@ -10,7 +10,7 @@ router.get("/", scoresController.getAllScores);
 router.get("/:id", scoresController.getScoreByID);
 
 // get score by date
-router.get("/:date", scoresController.getScoreByDate);
+router.get("/date/:date", scoresController.getScoreByDate);
 
 // create new score
 router.post("/", scoresController.createNewScore);

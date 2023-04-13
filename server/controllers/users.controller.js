@@ -8,13 +8,13 @@ exports.getAllUsers = (req, res) => {
   });
 };
 
-// // get user by username
-// exports.getUserByUserName = (req, res) => {
-//   UserModel.getUserByUserName(req.params.username, (err, user) => {
-//     if (err) res.send(err);
-//     res.send(user);
-//   });
-// };
+// get user by username
+exports.getUserByUserName = (req, res) => {
+  UserModel.getUserByUserName(req.params.username, (err, user) => {
+    if (err) res.send(err);
+    res.send(user);
+  });
+};
   
 // create new user
   exports.createNewUser = (req, res) => {
