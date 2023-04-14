@@ -5,6 +5,7 @@ require ('dotenv').config();
 const coursesRoutes = require('./routes/courses.route');
 const usersRoutes = require('./routes/users.route');
 const scoresRoutes = require('./routes/scores.route');
+const loginRoutes = require('./routes/login.route');
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(cors());
 app.use('/courses', coursesRoutes);
 app.use('/users', usersRoutes);
 app.use('/scores', scoresRoutes);
+app.use('/login', loginRoutes);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });

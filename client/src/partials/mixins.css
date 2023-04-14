@@ -1,0 +1,21 @@
+:root {
+    --mobile-max-width: 767px;
+    --tablet-min-width: 768px;
+    --tablet-max-width: 991px;
+    --desktop-min-width: 992px;
+  }
+
+  /* Styles for mobile devices */
+@media (max-width: var(--mobile-max-width)) {
+
+}
+
+/* Styles for tablet devices */
+@media (min-width: var(--tablet-min-width)) and (max-width: var(--tablet-max-width)) {
+
+}
+
+/* Styles for desktop devices */
+@media (min-width: var(--desktop-min-width)) {
+
+}
