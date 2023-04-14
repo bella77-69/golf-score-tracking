@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Loading from "./components/Loading/Loading";
+import Navigation from "./components/Nav/Nav";
+import Landing from "./pages/Landing/Landing";
+
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+ <Router>
+  {loading === false ? (
+        <>
+        <Navigation />
+        <Switch>
+          <Route path="/" exact component={Landing} />
+        </Switch>
+        {/* <Footer /> */}
+      </>
+    ) : (
+      <Loading />
+    )}
+  </Router>
+);
 }
 
 export default App;
