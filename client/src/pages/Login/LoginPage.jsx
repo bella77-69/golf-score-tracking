@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function LoginPage() {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,12 +18,13 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/login', {
+      const response = await axios.post('http://localhost:5000/login', {
         username,
         password,
       });
       console.log(response.data);
-      // TODO: handle successful login
+      // Redirect the user to the dashboard on successful login
+      window.location.href = ('/dashboard');
     } catch (error) {
       console.error(error);
       setError('Invalid username or password');
