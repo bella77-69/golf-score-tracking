@@ -14,7 +14,11 @@ const ScorecardDetails = ({ selectedScorecard }) => {
       <p>Location: {location}</p>
       <p>Date: {date}</p>
       <p>Score: {score}</p>
-      {/* Display hole-by-hole scores, putts, fairways, greens, etc. */}
+      <p>Putts: {putts}</p>
+      <p>Fairways Hit: {fairwaysHit}</p>
+      <p>Greens in Regulation: {greensInRegulation}</p>
+      <p>Hole Scores: {holeScores}</p>
+      
     </div>
   );
 };
