@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ScorecardOverview = ({ scorecards }) => {
-  console.log(scorecards);
   return (
     <div className="scorecard-overview">
       <h2>Scorecard Overview</h2>
@@ -12,7 +11,7 @@ const ScorecardOverview = ({ scorecards }) => {
           <p>Score: {scorecard.score}</p>
           <p>User Id: {scorecard.user_id}</p>
 
-          
+
         </div>
       ))}
     </div>

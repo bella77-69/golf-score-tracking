@@ -16,22 +16,24 @@ exports.getScoreByDate = (req, res) => {
   });
 };
   
-// create new score
-  exports.createNewScore = (req, res) => {
-    const scoreReqData = new ScoreModel(req.body);
-    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-      res.send(400).send({ success: false, message: "Please fill all fields" });
-    } else {
-      ScoreModel.createNewScore(scoreReqData, (err, score) => {
-        if (err) res.send(err);
+exports.createNewScore = (req, res) => {
+  const scoreReqData = new ScoreModel(req.body);
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res.status(400).send({ success: false, message: "Please fill all fields" });
+  } else {
+    ScoreModel.createNewScore(scoreReqData, (err, score) => {
+      if (err) {
+        res.status(500).json({ error: "Internal Server Error" });
+      } else {
         res.json({
           status: true,
-          message: "Course Created Successfully",
-          data: score.insertId,
+          message: "Score Created Successfully",
+          data: score,
         });
-      });
-    }
-  };
+      }
+    });
+  }
+};
   
 // get score by ID  for Update
   exports.getScoreByID = (req, res) => {

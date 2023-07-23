@@ -1,11 +1,11 @@
 const dbConn = require('../config/db.config');
 
-const Score = function (course) {
-    this.user_id = course.user_id;
-    this.course_id = course.course_id;
-    this.score = course.score;  
-    this.date = course.date;
-}
+const Score = function (score) {
+  this.user_id = score.user_id;
+  this.course_id = score.course_id;
+  this.score = score.score;  
+  this.date = score.date;
+};
 
 //get all scores
 Score.getAllScores = (result) => {
@@ -37,20 +37,20 @@ Score.getScoreByDate = (date, result) => {
 
 // create new score
 Score.createNewScore = (scoreReqData, result) => {
-    dbConn.query(
-      "INSERT INTO scores SET ?",
-      scoreReqData,
-      (err, res) => {
-        if (err) {
-          console.log("Error while inserting data");
-          result(null, err);
-        } else {
-          console.log("New score created successfully");
-          result(null, res);
-        }
+  dbConn.query(
+    "INSERT INTO scores SET ?",
+    scoreReqData,
+    (err, res) => {
+      if (err) {
+        console.log("Error while inserting data!");
+        result(err, null);
+      } else {
+        console.log("New score created successfully");
+        result(null, res.insertId);
       }
-    );
-  };
+    }
+  );
+};
   
 //get score by ID for update
 Score.getScoreByID = (id, result) => {
