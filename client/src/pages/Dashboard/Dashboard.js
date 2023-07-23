@@ -81,7 +81,7 @@
 // }
 
 // export default Dashboard;
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UserProfileSummary from '../../components/User/UserProfileSummary';
 import ScoreCardOverview from '../../components/Scores/ScoreCardOverview';
 import ScoreCardDetails from '../../components/Scores/ScoreCardDetails';
@@ -94,14 +94,7 @@ import Notifications from '../../components/User/Notifications';
 import UserSettings from '../../components/User/UserSettings';
 
 const Dashboard = () => {
-  // Replace these sample data with actual data from your state or API
-  const user = {
-    name: 'John Doe',
-    profilePicture: 'https://example.com/profile-pic.jpg',
-    roundsPlayed: 25,
-    averageScore: 85,
-    handicap: 12.5,
-  };
+  const [user, setUser] = useState(null); // Initialize user state to null
   const scorecards = []; // Array of scorecards
   const selectedScorecard = null; // Selected scorecard object or null if none selected
   const courseStats = []; // Array of golf course statistics
@@ -109,10 +102,32 @@ const Dashboard = () => {
   const achievements = []; // Array of earned achievements and badges
   const goals = []; // Array of personal goals
   const notifications = []; // Array of notifications
+
   // Replace the following line with your logout logic.
-  const handleLogout = () => 
-  window.location.href = ('/login');
-  console.log('Logged out'); // Replace this with actual logout logic
+  const handleLogout = () => {
+    window.location.href = '/login';
+    console.log('Logged out'); // Replace this with actual logout logic
+  };
+
+// Fetch user data when the component mounts
+useEffect(() => {
+  fetch('http://localhost:5000/users')
+    .then((res) => res.json())
+    .then((data) => {
+      // Assuming data is an array of users, extract the first user object
+      const firstUser = data[0];
+      setUser(firstUser); // Update the user state with the extracted user data
+      console.log(firstUser);
+    })
+    .catch((error) => {
+      console.error('Error fetching user data:', error);
+    });
+}, []);
+
+  // Render the component only when user data is available
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="dashboard">
