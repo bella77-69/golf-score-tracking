@@ -94,14 +94,33 @@ import Notifications from '../../components/User/Notifications';
 import UserSettings from '../../components/User/UserSettings';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null); // Initialize user state to null
-  const scorecards = []; // Array of scorecards
-  const selectedScorecard = null; // Selected scorecard object or null if none selected
-  const courseStats = []; // Array of golf course statistics
-  const progressData = []; // Array of progress data for charts
-  const achievements = []; // Array of earned achievements and badges
-  const goals = []; // Array of personal goals
-  const notifications = []; // Array of notifications
+  const [userData, setUserData] = useState({ user: null, scorecards: [] });
+
+  // Fetch user and score data when the component mounts
+  useEffect(() => {
+    Promise.all([
+      fetch('http://localhost:5000/users').then((res) => res.json()),
+      fetch('http://localhost:5000/scores').then((res) => res.json()),
+    ])
+      .then(([userData, scoreData]) => {
+        // Assuming data is an array of users and scores, extract the first user and score objects
+        const firstUser = userData[0];
+        const firstScore = scoreData[0];
+        setUserData({ user: firstUser, scorecards: [firstScore] }); // Update the state with the extracted user and score data
+        console.log(firstUser, firstScore);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  // Destructure the user and scorecards from the state
+  const { user, scorecards } = userData;
+
+  // Render the component only when user data is available
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   // Replace the following line with your logout logic.
   const handleLogout = () => {
@@ -109,37 +128,17 @@ const Dashboard = () => {
     console.log('Logged out'); // Replace this with actual logout logic
   };
 
-// Fetch user data when the component mounts
-useEffect(() => {
-  fetch('http://localhost:5000/users')
-    .then((res) => res.json())
-    .then((data) => {
-      // Assuming data is an array of users, extract the first user object
-      const firstUser = data[0];
-      setUser(firstUser); // Update the user state with the extracted user data
-      console.log(firstUser);
-    })
-    .catch((error) => {
-      console.error('Error fetching user data:', error);
-    });
-}, []);
-
-  // Render the component only when user data is available
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="dashboard">
       <UserProfileSummary user={user} />
       <ScoreCardOverview scorecards={scorecards} />
-      <ScoreCardDetails selectedScorecard={selectedScorecard} />
+      <ScoreCardDetails selectedScorecard={scorecards[0]} />
       <AddNewRound />
-      <Stats courseStats={courseStats} />
-      <ProgressCharts progressData={progressData} />
-      <AchievementsBadges achievements={achievements} />
-      <PersonalGoals goals={goals} />
-      <Notifications notifications={notifications} />
+      <Stats courseStats={[]} />
+      <ProgressCharts progressData={[]} />
+      <AchievementsBadges achievements={[]} />
+      <PersonalGoals goals={[]} />
+      <Notifications notifications={[]} />
       <UserSettings user={user} />
       <button onClick={handleLogout}>Logout</button>
     </div>
